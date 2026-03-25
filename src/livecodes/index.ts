@@ -2,6 +2,9 @@ import { customEvents } from './events/custom-events';
 import type { I18nKeyType } from './i18n';
 import { clickToLoad, isEmbed, livecodes, loading, params } from './main';
 import type { Config, CustomEvents } from './models';
+import { init } from '@plausible-analytics/tracker';
+
+
 
 const sdkVersion = params.get('sdkVersion');
 const rootSelector = '#livecodes';
@@ -63,6 +66,13 @@ if (isEmbed) {
     loadingText.innerText = i18nLoadingText;
   }
 }
+
+init({
+  domain: 'ou0.cc',
+  endpoint: 'https://plausible.canine.tools/api/event',
+  captureOnLocalhost: false,
+  outboundLinks: true
+})
 
 function load() {
   window.dispatchEvent(new Event(customEvents.load));
